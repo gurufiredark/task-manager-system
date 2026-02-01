@@ -3,7 +3,7 @@ using TaskManager.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adicionar serviços
+// Adiciona serviços
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -15,7 +15,7 @@ builder.Services.AddScoped<ITaskService, TaskService>();
 // CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddDefaultPolicy(policy =>
     {
         policy.AllowAnyOrigin()
               .AllowAnyMethod()
@@ -29,17 +29,18 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Task Manager API");
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Task Manager API v1");
     options.RoutePrefix = string.Empty;
 });
 
-app.UseCors("AllowAll");
-app.UseHttpsRedirection();
+app.UseCors();
 app.UseAuthorization();
 app.MapControllers();
 
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
-logger.LogInformation("Task Manager API iniciada!");
+logger.LogInformation("Task Manager API iniciada com sucesso!");
+logger.LogInformation("Swagger disponível em: {Environment}", 
+    app.Environment.IsDevelopment() ? "http://localhost:5239" : "URL do Railway");
 
 app.Run();
 
