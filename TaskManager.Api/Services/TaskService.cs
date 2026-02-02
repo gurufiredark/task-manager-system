@@ -16,12 +16,26 @@ public class TaskService : ITaskService
     public async Task<IEnumerable<TaskResponseDto>> GetAllTasksAsync(
         Entities.TaskStatus? status = null,
         string? orderBy = null,
-        string? orderDirection = null)
+        string? orderDirection = null,
+        DateTime? createdAfter = null,
+        DateTime? createdBefore = null)
     {
         var tasks = await _repository.GetAllAsync();
         
         if (status.HasValue)
+        {
             tasks = tasks.Where(t => t.Status == status.Value);
+        }
+
+        if (createdAfter.HasValue)
+        {
+            tasks = tasks.Where(t => t.CreatedAt >= createdAfter.Value);
+        }
+        
+        if (createdBefore.HasValue)
+        {
+            tasks = tasks.Where(t => t.CreatedAt <= createdBefore.Value);
+        }
         
         if (!string.IsNullOrWhiteSpace(orderBy))
         {
@@ -38,6 +52,9 @@ public class TaskService : ITaskService
                 "createdat" => orderDirection?.ToLower() == "desc"
                     ? tasks.OrderByDescending(t => t.CreatedAt)
                     : tasks.OrderBy(t => t.CreatedAt),
+                "updatedat" => orderDirection?.ToLower() == "desc"
+                    ? tasks.OrderByDescending(t => t.UpdatedAt)
+                    : tasks.OrderBy(t => t.UpdatedAt),
                 
                 _ => tasks.OrderByDescending(t => t.CreatedAt)
             };

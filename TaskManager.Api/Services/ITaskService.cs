@@ -7,7 +7,9 @@ public interface ITaskService
     Task<IEnumerable<TaskResponseDto>> GetAllTasksAsync(
         Entities.TaskStatus? status = null,
         string? orderBy = null,
-        string? orderDirection = null);
+        string? orderDirection = null,
+        DateTime? createdAfter = null,
+        DateTime? createdBefore = null);
     
     Task<TaskResponseDto?> GetTaskByIdAsync(Guid id);
     Task<TaskResponseDto> CreateTaskAsync(CreateTaskDto dto);

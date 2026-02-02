@@ -21,11 +21,13 @@ public class TasksController : ControllerBase
     public async Task<ActionResult<IEnumerable<TaskResponseDto>>> GetAll(
         [FromQuery] Entities.TaskStatus? status = null,
         [FromQuery] string? orderBy = null,
-        [FromQuery] string? orderDirection = null)
+        [FromQuery] string? orderDirection = null,
+        [FromQuery] DateTime? createdAfter = null,
+        [FromQuery] DateTime? createdBefore = null)
     {
         try
         {
-            var tasks = await _taskService.GetAllTasksAsync(status, orderBy, orderDirection);
+            var tasks = await _taskService.GetAllTasksAsync(status, orderBy, orderDirection, createdAfter, createdBefore);
             return Ok(tasks);
         }
         catch (Exception ex)
