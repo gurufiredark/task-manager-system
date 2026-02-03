@@ -1,6 +1,6 @@
 # 📋 Sistema de Gerenciamento de Tarefas - Task Manager
 
-> Um sistema completo para gerenciamento de tarefas, construído com .NET 10 e React 19.
+> Um sistema completo para gerenciamento de tarefas, construído em C# com .NET 10 e uma parte visual básica em React.
 
 ![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet)
 ![React](https://img.shields.io/badge/React-19.2-61DAFB?style=flat-square&logo=react)
@@ -222,8 +222,8 @@ O arquivo `tasks.json` é criado automaticamente em `TaskManager.Api/Data/`:
 [
   {
     "Id": "72c959fd-050c-492b-bb26-4ff4c6339d04",
-    "Title": "Estudar React",
-    "Description": "Aprender hooks e context API",
+    "Title": "Estudar .NET",
+    "Description": "Aprender Garbage Collector",
     "Status": 0,
     "CreatedAt": "2026-02-02T11:28:36.495Z",
     "UpdatedAt": null
