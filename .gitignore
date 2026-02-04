@@ -15,6 +15,9 @@
 *.db-shm
 *.db-wal
 
+# --- DATABASE ---
+**/Data/*.json
+
 # --- FRONTEND (React / Vite) ---
 **/node_modules/
 
