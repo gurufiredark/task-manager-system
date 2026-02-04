@@ -16,7 +16,7 @@
 *.db-wal
 
 # --- DATABASE ---
-**/Data/*.json
+**/Data/
 
 # --- FRONTEND (React / Vite) ---
 **/node_modules/
