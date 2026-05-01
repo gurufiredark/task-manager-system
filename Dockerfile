@@ -1,24 +1,29 @@
-# Usa a imagem oficial do SDK do .NET 8 para compilar o código
+# Estágio de Build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
+WORKDIR /src
 
-# Copia a pasta do projeto da API
-COPY TaskManager.Api/ ./TaskManager.Api/
+# 1. Copia o arquivo de projeto usando o caminho da subpasta
+COPY ["TaskManager.Api/TaskManager.Api.csproj", "TaskManager.Api/"]
 
-# Restaura as dependências (baseado no seu .csproj)
+# 2. Restaura as dependências
 RUN dotnet restore "TaskManager.Api/TaskManager.Api.csproj"
 
-# Publica a aplicação
-RUN dotnet publish "TaskManager.Api/TaskManager.Api.csproj" -c Release -o out
+# 3. Copia todo o conteúdo da pasta da API
+COPY TaskManager.Api/ ./TaskManager.Api/
 
-# Usa a imagem de runtime mais leve para rodar a aplicação
+# 4. Compila e gera o .dll dentro da pasta /app/out
+WORKDIR "/src/TaskManager.Api"
+RUN dotnet publish "TaskManager.Api.csproj" -c Release -o /app/out
+
+# Estágio de Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
+# Copia o .dll gerado no estágio anterior
 COPY --from=build /app/out .
 
-# Expõe a porta que o Render vai usar
+# Configuração de porta para o Render
 ENV ASPNETCORE_URLS=http://+:10000
 EXPOSE 10000
 
-# Comando para iniciar a aplicação
+# O Docker vai procurar o .dll aqui dentro do container
 ENTRYPOINT ["dotnet", "TaskManager.Api.dll"]
