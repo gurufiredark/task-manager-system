@@ -16,7 +16,7 @@ WORKDIR "/src/TaskManager.Api"
 RUN dotnet publish "TaskManager.Api.csproj" -c Release -o /app/out
 
 # Estágio de Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 # Copia o .dll gerado no estágio anterior
 COPY --from=build /app/out .
