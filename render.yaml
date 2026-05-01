@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: task-manager-api
+    runtime: dotnet # Força o uso do .NET
+    buildCommand: dotnet publish -c Release -o out TaskManager.Api/TaskManager.Api.csproj
+    startCommand: dotnet out/TaskManager.Api.dll
+    envVars:
+      - key: ASPNETCORE_URLS
+        value: http://*:10000
