@@ -1,5 +1,5 @@
 # Estágio de Build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 # 1. Copia o arquivo de projeto usando o caminho da subpasta
