@@ -122,7 +122,7 @@ function App() {
           <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg mb-6">
             <p className="font-semibold">⚠️ {error}</p>
             <p className="text-sm mt-2">
-              Certifique-se de que a API está rodando em http://localhost:5239
+              Certifique-se de que a API está rodando em https://task-manager-system-pax0.onrender.com
             </p>
           </div>
         )}
